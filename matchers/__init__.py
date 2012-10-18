@@ -229,9 +229,11 @@ class has_properties(BaseMatcher):
         return {k: getattr(obj, k, None) for k in self.entries.iterkeys()}
 
     def describe_to(self, description):
-        description.append_text('an object with all this properties: {}'
-                                .format(self.entries))
+        description.append_text('an object with all this properties: {}'.format(self.entries))
 
     def describe_mismatch(self, actual, description):
-        description.append_text('but found instead a {} object with this properties: {}'
-                                .format(actual, self._properties(actual)))
+        properties = self._properties(actual)
+        description.append_text(' but found instead a {} object with this properties: {}'
+                                .format(actual, properties))
+        difference = set(properties.items()) - set(self.entries.items())
+        description.append_text(' which differs in {}'.format(difference))
