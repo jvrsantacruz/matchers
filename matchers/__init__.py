@@ -3,6 +3,7 @@
 import re
 import json
 from lxml import etree
+from exceptions import StopIteration
 
 from hamcrest import *
 from hamcrest.core.base_matcher import BaseMatcher
@@ -250,6 +251,17 @@ class has_properties(BaseMatcher):
 
 class empty(BaseMatcher):
     def _matches(self, obj):
+        if hasattr(obj, '__iter__'):
+            if not hasattr(obj, 'next'):
+                obj = iter(obj)
+
+            try:
+                obj.next()
+            except StopIteration:
+                return True
+            else:
+                return False
+
         return not bool(obj)
 
     def describe_to(self, description):

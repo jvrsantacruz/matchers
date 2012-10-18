@@ -24,6 +24,12 @@ class TestEmpty(object):
     def test_empty_str(self):
         assert_that(str(), is_(empty()))
 
+    def test_empty_generator(self):
+        assert_that((a for a in list()), is_(empty()))
+
+    def test_empty_iterator(self):
+        assert_that(iter(list()), is_(empty()))
+
 
 class TestNotEmpty(object):
     def setup(self):
@@ -46,3 +52,9 @@ class TestNotEmpty(object):
 
     def test_not_empty_str(self):
         assert_that(str('string'), is_not(empty()))
+
+    def test_not_empty_generator(self):
+        assert_that((i for i in range(1)), is_not(empty()))
+
+    def test_not_empty_iterator(self):
+        assert_that(iter([1]), is_not(empty()))
