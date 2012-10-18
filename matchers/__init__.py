@@ -246,3 +246,11 @@ class has_properties(BaseMatcher):
                                 .format(actual, properties))
         difference = set(properties.items()) - set(self.entries.items())
         description.append_text(' which differs in {}'.format(difference))
+
+
+class empty(BaseMatcher):
+    def _matches(self, obj):
+        return not bool(obj)
+
+    def describe_to(self, description):
+        description.append_text(' an empty object ')
