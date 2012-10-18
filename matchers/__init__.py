@@ -33,9 +33,20 @@ class edi_document(matches_re):
 
 
 class date_iso(matches_re):
+    fmt = dict(
+        year = '(\d{4})',
+        month = '(\d{2})',
+        day = '(\d{2})',
+        hours = '(\d{2})',
+        minutes = '(\d{2})',
+        seconds = '(\d{2})',
+        miliseconds = '(\d+)',
+    )
+
     def __init__(self):
-        super(date_iso, self).\
-                __init__(u'^(\d{4})-(\d{2})-(\d{2})[T ](\d+):(\d+):(\d+).(\d+)$')
+        super(date_iso, self).__init__(
+            u'^{year}-{month}-{day}[T ]{hours}:{minutes}:{seconds}(.{miliseconds})?$'.format(**self.fmt)
+        )
 
     def describe_to(self, description):
         description.append_text(u'an ISO formatted date string')
