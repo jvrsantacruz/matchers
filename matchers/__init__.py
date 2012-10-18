@@ -19,10 +19,10 @@ class matches_re(BaseMatcher):
         return any(self.regex.finditer(item))
 
     def describe_to(self, description):
-        description.append_text(u"string that does match regex: {0}".format(self.regex_text))
+        description.append_text(u" string that matches regex: {0}".format(self.regex_text))
 
     def describe_mismatch(self, description):
-        description.append_text(u"string does not match regex: {0}".format(self.regex_text))
+        description.append_text(u" string does not match regex: {0}".format(self.regex_text))
 
 
 class edi_document(matches_re):
