@@ -21,8 +21,8 @@ class matches_re(BaseMatcher):
     def describe_to(self, description):
         description.append_text(u" string that matches regex: {0}".format(self.regex_text))
 
-    def describe_mismatch(self, description):
-        description.append_text(u" string does not match regex: {0}".format(self.regex_text))
+    def describe_mismatch(self, actual, description):
+        description.append_text(u" string {} does not match regex: {}".format(actual, self.regex_text))
 
 
 class edi_document(matches_re):
@@ -49,10 +49,7 @@ class date_iso(matches_re):
         )
 
     def describe_to(self, description):
-        description.append_text(u'an ISO formatted date string')
-
-    def describe_mismatch(self, actual, description):
-        description.append_text(u'"{}" does not match "{}"'.format(actual, self.regex_text))
+        description.append_text(u' an ISO formatted date string ')
 
 
 class xml_document(BaseMatcher):
@@ -80,8 +77,9 @@ class xml_document(BaseMatcher):
     def describe_to(self, description):
         description.append_text(u"string conforming a valid XML document")
 
-    def describe_mismatch(self, description):
-        description.append_text(u"failed to load xml document: '{0}'".format(self.error))
+    def describe_mismatch(self, actual, description):
+        description.append_text(u"failed to load xml document {} due to following errors: '{}'"
+                                .format(actual, self.error))
 
 
 class xml_element(BaseMatcher):
@@ -138,8 +136,8 @@ class xml_namespaced(BaseMatcher):
     def describe_to(self, description):
         description.append_text(u"xml document wich is namespaced with the url '{0}'".format(self.url))
 
-    def describe_mismatch(self, description):
-        description.append_text(u"url '{0}' is not within the namespaces of the xml element".format(self.url))
+    def describe_mismatch(self, actual, description):
+        description.append_text(u"url '{}' is not within the namespaces of the xml element {}".format(self.url, actual.nsmap))
 
 
 class soap_document(xml_document):
@@ -157,7 +155,7 @@ class soap_document(xml_document):
     def describe_to(self, description):
         description.append_text(u"SOA xml document envelope")
 
-    def describe_mismatch(self, description):
+    def describe_mismatch(self, actual, description):
         description.append_text(u"is not a valid xml document or does not have namespace '{0}'"
                                 .format(self.ns_url))
 
@@ -169,8 +167,8 @@ class soap_message(soap_document):
     def describe_to(self, description):
         description.append_text(u"xml document within a SOA envelope")
 
-    def describe_mismatch(self, description):
-        description.append_text(u" should containg a 'Body' element ")
+    def describe_mismatch(self, actual, description):
+        description.append_text(u" soap message {} should containg a 'Body' element ".format(actual))
 
 
 class json_(BaseMatcher):
@@ -206,8 +204,8 @@ class callable_(BaseMatcher):
     def describe_to(self, description):
         description.append_text('callable object')
 
-    def describe_mismatch(self, description):
-        description.append_text('was not a callable object')
+    def describe_mismatch(self, actual, description):
+        description.append_text(' the object {} was not a callable object'.format(actual))
 
 
 class has_properties(BaseMatcher):
