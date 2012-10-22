@@ -6,7 +6,16 @@ from matchers import matches_re, date_iso
 
 
 DATE_ISO_FORMAT = '2012-10-10T00:00:00'
+DATE_ISO_FORMAT_SPACE = '2012-10-10 00:00:00'
+DATE_ISO_FORMAT_SHORT = '2012-10-10'
 DATE_ISO_FORMAT_MILISECONDS = '2012-10-10T00:00:00.2042342'
+DATE_ISO_FORMAT_WRONG_ORDER = '10-2012-10'
+DATE_ISO_FORMAT_WRONG_ORDER_1 = '21-10-2012'
+DATE_ISO_FORMAT_WRONG_MONTH = '2012-13-10T00:00:00'
+DATE_ISO_FORMAT_WRONG_DAY = '2012-10-40T00:00:00'
+DATE_ISO_FORMAT_WRONG_HOUR = '2012-10-10T25:00:00'
+DATE_ISO_FORMAT_WRONG_MIN = '2012-10-10T00:70:00'
+DATE_ISO_FORMAT_WRONG_SEC = '2012-10-10T00:00:70'
 
 
 class TestMatchesRe(object):
@@ -26,9 +35,32 @@ class TestMatchesRe(object):
 class TestMatchesDateISO(object):
     def test_matches_iso_date(self):
         assert_that(DATE_ISO_FORMAT, is_(date_iso()))
+        assert_that(DATE_ISO_FORMAT_SPACE, is_(date_iso()))
 
     def test_matches_iso_date_with_miliseconds(self):
         assert_that(DATE_ISO_FORMAT_MILISECONDS, is_(date_iso()))
 
-    def test_matchers_not_iso_date(self):
-        assert_that(DATE_ISO_FORMAT.split('T')[0], is_not(date_iso()))
+    def test_matchers_iso_date_without_time(self):
+        assert_that(DATE_ISO_FORMAT.split('T')[0], is_(date_iso()))
+
+    def test_matchers_iso_date_with_slash_separator(self):
+        assert_that(DATE_ISO_FORMAT.replace('-', '/'), is_(date_iso()))
+
+    def test_matchers_iso_date_with_different_order(self):
+        assert_that(DATE_ISO_FORMAT_WRONG_ORDER, is_not(date_iso()))
+        assert_that(DATE_ISO_FORMAT_WRONG_ORDER_1, is_not(date_iso()))
+
+    def test_matchers_iso_date_with_wrong_month(self):
+        assert_that(DATE_ISO_FORMAT_WRONG_MONTH, is_not(date_iso()))
+
+    def test_matchers_iso_date_with_wrong_day(self):
+        assert_that(DATE_ISO_FORMAT_WRONG_DAY, is_not(date_iso()))
+
+    def test_matchers_iso_date_with_wrong_hour(self):
+        assert_that(DATE_ISO_FORMAT_WRONG_HOUR, is_not(date_iso()))
+
+    def test_matchers_iso_date_with_wrong_min(self):
+        assert_that(DATE_ISO_FORMAT_WRONG_MIN, is_not(date_iso()))
+
+    def test_matchers_iso_date_with_wrong_sec(self):
+        assert_that(DATE_ISO_FORMAT_WRONG_SEC, is_not(date_iso()))

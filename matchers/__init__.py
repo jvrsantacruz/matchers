@@ -20,10 +20,11 @@ class matches_re(BaseMatcher):
         return any(self.regex.finditer(item))
 
     def describe_to(self, description):
-        description.append_text(u" string that matches regex: {0}".format(self.regex_text))
+        description.append_text(u" string that matches regex: '{}'".format(self.regex_text))
 
     def describe_mismatch(self, actual, description):
-        description.append_text(u" string {} does not match regex: {}".format(actual, self.regex_text))
+        description.append_text(u" string '{}' does not match regex: '{}'"
+                                .format(actual, self.regex_text))
 
 
 class edi_document(matches_re):
@@ -36,17 +37,20 @@ class edi_document(matches_re):
 class date_iso(matches_re):
     fmt = dict(
         year = '(\d{4})',
-        month = '(\d{2})',
-        day = '(\d{2})',
-        hours = '(\d{2})',
-        minutes = '(\d{2})',
-        seconds = '(\d{2})',
+        month = '((0[1-9])|(1[0-2]))',
+        day = '([0-3]\d)',
+        hours = '(([01]\d)|(2[0-3]))',
+        minutes = '([0-5]\d)',
+        seconds = '([0-5]\d)',
         miliseconds = '(\d+)',
+        sep = '[/-]',
     )
 
     def __init__(self):
+        "1988-10-04T06:15:00.230943Z"
         super(date_iso, self).__init__(
-            u'^{year}-{month}-{day}[T ]{hours}:{minutes}:{seconds}(.{miliseconds})?$'.format(**self.fmt)
+            u'^{year}{sep}{month}{sep}{day}([T ]{hours}:{minutes}:{seconds}(.{miliseconds})?)?$'
+            .format(**self.fmt)
         )
 
     def describe_to(self, description):
