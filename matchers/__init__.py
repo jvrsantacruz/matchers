@@ -17,7 +17,7 @@ class matches_re(BaseMatcher):
         self.regex = re.compile(regex)
 
     def _matches(self, item):
-        if not isinstance(item, str) or not isinstance(item, unicode):
+        if not isinstance(item, str) and not isinstance(item, unicode):
             return False
 
         return any(self.regex.finditer(item))
