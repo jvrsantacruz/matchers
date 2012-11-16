@@ -57,7 +57,7 @@ class date_iso(matches_re):
         )
 
     def describe_to(self, description):
-        description.append_text(u' an ISO formatted date string ')
+        description.append_text(u' an ISO 8601 formatted date string ')
 
 
 class xml_document(BaseMatcher):
