@@ -273,3 +273,19 @@ class empty(BaseMatcher):
 
     def describe_to(self, description):
         description.append_text(' an empty object ')
+
+
+class has_keys(BaseMatcher):
+    def __init__(self, entries):
+        self.entries = set(entries)
+
+    def _matches(self, obj):
+        return not bool(self.entries - set(dict(obj).keys()))
+
+    def describe_to(self, description):
+        description.append_text('a dictionary contains all this keys: {}'.format(self.entries))
+
+    def describe_mismatch(self, actual, description):
+        description.append_text(' but found instead: {}'.format(actual))
+        description.append_text(' which misses keys: {}'.format(self.entries - set(actual.keys())))
+
