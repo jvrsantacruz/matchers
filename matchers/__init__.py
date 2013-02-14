@@ -109,9 +109,7 @@ class xml_document(BaseMatcher):
 class xml_element(BaseMatcher):
     """Checks for a xml element with a certain name"""
     def __init__(self, tag, matcher=None, ns=None):
-        self.tag = tag
-        if ns:
-            self.tag = "{{{ns}}}{tag}".format(ns=ns, tag=tag)
+        self.tag = tag if ns is None else "{{{ns}}}{tag}".format(ns=ns, tag=tag)
         self.matcher = matcher
 
     def _matches(self, item):
