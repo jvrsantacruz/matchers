@@ -2,6 +2,15 @@
 
 Highly reusable custom hamcrest matchers
 
+## Installation
+
+	python setup.py install
+
+## Dependences
+
+- lxml
+- pyHamcrest
+
 ## Available matchers
 
 -	empty
