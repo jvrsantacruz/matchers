@@ -49,8 +49,9 @@ class matches_re(BaseMatcher):
 class edi_document(matches_re):
     """Custom hamcrest matcher to pseudo-validate EDI"""
     def __init__(self):
-        super(edi_document, self).\
-                __init__(u'UNB\+UNOA:1\+[^:]+:ZZ\+AEATADUE:ZZ\+\d{8}:\d{4}\+\d+\+\+&EE')
+        super(edi_document, self).__init__(
+            u'UNB\+UNOA:1\+[^:]+:ZZ\+AEATADUE:ZZ\+\d{8}:\d{4}\+\d+\+\+&EE'
+        )
 
 
 class date_iso(matches_re):
@@ -302,4 +303,3 @@ class has_keys(BaseMatcher):
     def describe_mismatch(self, actual, description):
         description.append_text(' but found instead: {}'.format(actual))
         description.append_text(' which misses keys: {}'.format(self.entries - set(actual.keys())))
-
