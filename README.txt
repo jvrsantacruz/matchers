@@ -68,6 +68,8 @@ class Object(object):
 	first = 'foo'
 	second = 'bar'
 
+assert_that(Object(), has_properties(first='foo', second='bar'))
+
 assert_that(Object(), has_properties(dict(
 		first='foo',
 		second='bar'
