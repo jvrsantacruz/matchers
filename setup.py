@@ -15,7 +15,7 @@ requires = [
 setup(
     name='matchers',
     description='Custom Hamcrest matchers',
-    version='0.16',
+    version='0.17',
     long_description=README + '\n',
     classifiers=[
         "Programming Language :: Python",
