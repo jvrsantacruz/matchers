@@ -232,10 +232,12 @@ class callable_(BaseMatcher):
 
 
 class has_properties(BaseMatcher):
-    def __init__(self, entries):
-        self.entries = dict(entries)
+    def __init__(self, *args, **kwargs):
+        """ has_properties(dict) or has_properties(a=1, b=2) """
+        if args:
+            kwargs.update(args[0])
 
-        self.entries = dict(entries)
+        self.entries = dict(kwargs)
 
     def _matches(self, obj):
         return has_entries(self.entries).matches(self._properties(obj))
