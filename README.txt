@@ -15,6 +15,7 @@ Highly reusable custom hamcrest matchers
 
 -	empty
 -	date_iso (ISO 8601 formatted date string)
+- 	iterable
 -	has_properties
 -	has_keys
 -	matches_re
@@ -57,6 +58,32 @@ from matchers import date_iso
 
 assert_that('1988-10-04T06:15:00.230943Z', is_(date_iso()))
 ```
+
+### iterable
+
+```python
+from hamcrest import *
+from matchers import iterable
+
+
+assert_that(list(), is_(iterable()))
+assert_that(dict(), is_(iterable()))
+assert_that(tuple(), is_(iterable()))
+assert_that(set(), is_(iterable()))
+
+assert_that(str(), is_(iterable()))
+assert_that(unicode(), is_(iterable()))
+
+assert_that((i for i in []), is_(iterable()))
+assert_that(iter([]), is_(iterable()))
+
+class IterateMe(object):
+	l = list()
+	def __iter__(self):
+		return iter(l)
+
+assert_that(IterateMe(), is_(iterable()))
+`
 
 ### has_properties
 

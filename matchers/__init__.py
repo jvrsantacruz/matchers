@@ -292,3 +292,14 @@ class has_keys(BaseMatcher):
     def describe_mismatch(self, actual, description):
         description.append_text(' but found instead: {}'.format(actual))
         description.append_text(' which misses keys: {}'.format(self.entries - set(actual.keys())))
+
+
+class iterable(BaseMatcher):
+    def _matches(self, obj):
+        return isinstance(obj, Iterable)
+
+    def describe_to(self, description):
+        description.append_text('an iterable object ')
+
+    def describe_to(self, actual, description):
+        description.append_text(' but found instead a {} object, which is not iterable'.format(actual))
