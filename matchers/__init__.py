@@ -56,14 +56,14 @@ class edi_document(matches_re):
 
 class date_iso(matches_re):
     fmt = dict(
-        year = '(\d{4})',
-        month = '((0[1-9])|(1[0-2]))',
-        day = '([0-3]\d)',
-        hours = '(([01]\d)|(2[0-3]))',
-        minutes = '([0-5]\d)',
-        seconds = '([0-5]\d)',
-        miliseconds = '(\d+)',
-        sep = '[/-]',
+        year=r'(\d{4})',
+        month=r'((0[1-9])|(1[0-2]))',
+        day=r'([0-3]\d)',
+        hours=r'(([01]\d)|(2[0-3]))',
+        minutes=r'([0-5]\d)',
+        seconds=r'([0-5]\d)',
+        miliseconds=r'(\d+)',
+        sep=r'[/-]',
     )
 
     def __init__(self):
