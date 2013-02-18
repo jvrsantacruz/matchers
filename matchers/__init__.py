@@ -19,6 +19,7 @@ along with matchers.  If not, see <http://www.gnu.org/licenses/>.
 import re
 import json
 from lxml import etree
+from collections import Iterable
 from exceptions import StopIteration
 
 from hamcrest import *
@@ -276,8 +277,11 @@ class empty(BaseMatcher):
 
 
 class has_keys(BaseMatcher):
-    def __init__(self, entries):
-        self.entries = set(entries)
+    def __init__(self, *args):
+        if len(args) == 1 and isinstance(args[0], Iterable):
+            args = args[0]
+
+        self.entries = set(args)
 
     def _matches(self, obj):
         return not bool(self.entries - set(dict(obj).keys()))

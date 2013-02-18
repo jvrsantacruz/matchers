@@ -25,6 +25,9 @@ class TestHasKeys(object):
     def test_empty_dict(self):
         assert_that({}, has_keys([]))
 
+    def test_args_constructor(self):
+        assert_that(dict(key=1, key2=2), has_keys('key', 'key2'))
+
     def test_same_key(self):
         assert_that(dict(key=1), has_keys(['key']))
 
@@ -47,7 +50,7 @@ class TestHasKeys(object):
         assert_that((('key', 1),), has_keys(['key']))
 
     def test_with_matched_object_being_a_pair_sequence_generator(self):
-        assert_that(((k,v) for k,v in dict(key=1).items()), has_keys(['key']))
+        assert_that(((k, v) for k, v in dict(key=1).items()), has_keys(['key']))
 
     def test_with_matched_object_being_a_dictionary_generator(self):
-        assert_that({k:v for k,v in dict(key=1).items()}, has_keys(['key']))
+        assert_that({k: v for k, v in dict(key=1).items()}, has_keys(['key']))
