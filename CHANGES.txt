@@ -1,0 +1,5 @@
+0.1.5 (2013-02-18)
+------------------
+
+* Añade uso de kwargs a has_properties
+* Añade tests para has_properties
