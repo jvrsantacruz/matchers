@@ -235,23 +235,6 @@ class has_properties(BaseMatcher):
     def __init__(self, entries):
         self.entries = dict(entries)
 
-    def _matches(self, obj):
-        return has_entries(self.entries).matches(self._properties(obj))
-
-    def _properties(self, obj):
-        return {k: getattr(obj, k, None) for k in self.entries.iterkeys()}
-
-    def describe_to(self, description):
-        description.append_text('an object with all this properties: {}'
-                                .format(self.entries))
-
-    def describe_mismatch(self, actual, description):
-        description.append_text('but found instead a {} object with this properties: {}'
-                                .format(actual, self._properties(actual)))
-
-
-class has_properties(BaseMatcher):
-    def __init__(self, entries):
         self.entries = dict(entries)
 
     def _matches(self, obj):
