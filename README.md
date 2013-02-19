@@ -83,7 +83,7 @@ class IterateMe(object):
 		return iter(l)
 
 assert_that(IterateMe(), is_(iterable()))
-`
+```
 
 ### has_properties
 
@@ -146,8 +146,8 @@ assert_that(lambda : 'foo', is_(callable_()))
 from hamcrest import *
 from matchers import json_
 
-assert_that("{'foo': ['bar']}, is_(json_()))
-assert_that("{'foo': ['bar']}, is_(json_(has_key('foo'))))
+assert_that("{'foo': ['bar']}", is_(json_()))
+assert_that("{'foo': ['bar']}", is_(json_(has_key('foo'))))
 ```
 
 ### xml_document
