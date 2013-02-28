@@ -13,9 +13,9 @@ requires = [
 ]
 
 setup(
-    version='0.17',
     name=u'matchers',
     description=u'Collection of highly reusable hamcrest matchers',
+    version=u'0.18',
     long_description=README + u'\n',
     classifiers=[
         u"Programming Language :: Python",
