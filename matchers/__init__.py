@@ -21,6 +21,7 @@ import json
 from lxml import etree
 from collections import Iterable
 from exceptions import StopIteration
+from contextlib import contextmanager
 
 from hamcrest import *
 from hamcrest.core.base_matcher import BaseMatcher
@@ -303,3 +304,20 @@ class iterable(BaseMatcher):
 
     def describe_to(self, actual, description):
         description.append_text(' but found instead a {} object, which is not iterable'.format(actual))
+
+
+@contextmanager
+def assert_that_raises(matcher_or_exception):
+    exception, matcher = ((matcher_or_exception, None)
+                          if isinstance(matcher_or_exception, Exception)
+                          else (Exception, matcher_or_exception))
+
+    catched = {'exception': None}
+    try:
+        yield catched
+    except exception as raised:
+        catched['exception'] = raised
+        if matcher is not None:
+            assert_that(raised, matcher)
+    else:
+        raise AssertionError(u'no {} raised'.format(exception.__name__))

@@ -11,6 +11,12 @@ Highly reusable custom hamcrest matchers
 - lxml
 - pyHamcrest
 
+
+## Functions
+
+- assert_that_raises
+
+
 ## Available matchers
 
 -	empty
@@ -28,6 +34,33 @@ Highly reusable custom hamcrest matchers
 -	xml_namespaced
 -	soap_document
 -	soap_message
+
+
+### assert_that_raises
+
+```python
+from hamcrest import *
+from matchers import assert_that_raises
+
+with assert_that_raises(Warning):
+	raise Warning()
+
+with assert_that_raises(instance_of(Warning)):
+	raise Warning()
+
+with assert_that_raises(has_property('message', has_string(u'warning'))):
+	raise Warning(u'this is a warning')
+
+# this raises AssertionError: no Exception raised
+with assert_that_raises(NameError):
+	raise Warning()
+
+# {'exception': Warning(u'this is a warning')}
+with assert_that_raises(Warning) as captured:
+	raise Warning(u'this is a warning')
+
+print captured['exception']
+```
 
 ### empty
 
