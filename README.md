@@ -29,6 +29,7 @@ Highly reusable custom hamcrest matchers
 -	json_
 -   subset_of
 -   superset_of 
+-   disjoint_with
 -	xml_document
 -	xml_root
 -	xml_element
@@ -201,6 +202,15 @@ from hamcrest import *
 from matchers import superset_of
 
 assert_that([1, 2, 3], is_(superset_of([1, 2])))
+```
+
+### disjoint_with
+
+```python
+from hamcrest import *
+from matchers import disjoint_with
+
+assert_that([1, 2, 3], is_(disjoint_with([4, 5, 6])))
 ```
 
 ### xml_document
