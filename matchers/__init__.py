@@ -338,6 +338,19 @@ class disjoint_with(_setmatcher):
         description.append_text('a set disjoint of {}'.format(self.sequence))
 
 
+class as_unicode(BaseMatcher):
+    def __init__(self, matcher=None):
+        self.matcher = matcher
+
+    def _matches(self, obj):
+        try:
+            uobj = unicode(obj)
+        except UnicodeDecodeError:
+            raise AssertionError(u'object "{}" is not unicode codificable'.format(obj))
+        else:
+            return matcher.matches(unicode(uobj))
+
+
 @contextmanager
 def assert_that_raises(matcher_or_exception):
     exception, matcher = ((matcher_or_exception, None)
