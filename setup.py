@@ -28,6 +28,6 @@ setup(
     test_suite=u'nose.collector',
     url=u'https://github.com/grupotaric/matchers',
     download_url=u'https://github.com/grupotaric/matchers/tags',
-    author=uu'Taric S.A.',
+    author=u'Taric S.A.',
     author_email=u'appregs@taric.es',
 )
