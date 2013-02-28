@@ -58,14 +58,14 @@ class edi_document(matches_re):
 
 class date_iso(matches_re):
     fmt = dict(
-        year=r'(\d{4})',
-        month=r'((0[1-9])|(1[0-2]))',
-        day=r'([0-3]\d)',
-        hours=r'(([01]\d)|(2[0-3]))',
-        minutes=r'([0-5]\d)',
-        seconds=r'([0-5]\d)',
-        miliseconds=r'(\d+)',
-        sep=r'[/-]',
+        year=ur'(\d{4})',
+        month=ur'((0[1-9])|(1[0-2]))',
+        day=ur'([0-3]\d)',
+        hours=ur'(([01]\d)|(2[0-3]))',
+        minutes=ur'([0-5]\d)',
+        seconds=ur'([0-5]\d)',
+        miliseconds=ur'(\d+)',
+        sep=ur'[/-]',
     )
 
     def __init__(self):
@@ -227,10 +227,10 @@ class callable_(BaseMatcher):
         return callable(item)
 
     def describe_to(self, description):
-        description.append_text('callable object')
+        description.append_text(u'callable object')
 
     def describe_mismatch(self, actual, description):
-        description.append_text(' the object {} was not a callable object'.format(actual))
+        description.append_text(u' the object {} was not a callable object'.format(actual))
 
 
 class has_properties(BaseMatcher):
@@ -248,14 +248,14 @@ class has_properties(BaseMatcher):
         return {k: getattr(obj, k, None) for k in self.entries.iterkeys()}
 
     def describe_to(self, description):
-        description.append_text('an object with all this properties: {}'.format(self.entries))
+        description.append_text(u'an object with all this properties: {}'.format(self.entries))
 
     def describe_mismatch(self, actual, description):
         properties = self._properties(actual)
-        description.append_text(' but found instead a {} object with this properties: {}'
+        description.append_text(u' but found instead a {} object with this properties: {}'
                                 .format(actual, properties))
         difference = set(properties.items()) - set(self.entries.items())
-        description.append_text(' which differs in {}'.format(difference))
+        description.append_text(u' which differs in {}'.format(difference))
 
 
 class empty(BaseMatcher):
@@ -270,7 +270,7 @@ class empty(BaseMatcher):
             return False
 
     def describe_to(self, description):
-        description.append_text(' an empty object ')
+        description.append_text(u' an empty object ')
 
 
 class has_keys(BaseMatcher):
@@ -284,11 +284,11 @@ class has_keys(BaseMatcher):
         return not bool(self.entries - set(dict(obj).keys()))
 
     def describe_to(self, description):
-        description.append_text('a dictionary contains all this keys: {}'.format(self.entries))
+        description.append_text(u'a dictionary contains all this keys: {}'.format(self.entries))
 
     def describe_mismatch(self, actual, description):
-        description.append_text(' but found instead: {}'.format(actual))
-        description.append_text(' which misses keys: {}'.format(self.entries - set(actual.keys())))
+        description.append_text(u' but found instead: {}'.format(actual))
+        description.append_text(u' which misses keys: {}'.format(self.entries - set(actual.keys())))
 
 
 class iterable(BaseMatcher):
@@ -296,10 +296,10 @@ class iterable(BaseMatcher):
         return isinstance(obj, Iterable)
 
     def describe_to(self, description):
-        description.append_text('an iterable object ')
+        description.append_text(u'an iterable object ')
 
-    def describe_to(self, actual, description):
-        description.append_text(' but found instead a {} object, which is not iterable'.format(actual))
+    def describe_mismatch(self, actual, description):
+        description.append_text(u' but found instead a {} object, which is not iterable'.format(actual))
 
 
 class _setmatcher(BaseMatcher):

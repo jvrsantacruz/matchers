@@ -30,6 +30,8 @@ Highly reusable custom hamcrest matchers
 -   subset_of
 -   superset_of 
 -   disjoint_with
+
+### xml matchers
 -	xml_document
 -	xml_root
 -	xml_element
@@ -296,4 +298,3 @@ string = """
 assert_that(string, 
 		is_(xml_document(is_(soap_document(is_(soap_message()))))))
 ```
-
