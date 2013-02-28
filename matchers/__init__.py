@@ -302,6 +302,25 @@ class iterable(BaseMatcher):
         description.append_text(' but found instead a {} object, which is not iterable'.format(actual))
 
 
+class _setmatcher(BaseMatcher):
+    def __init__(self, sequence):
+        self.sequence = set(sequence)
+
+    def describe_mismatch(self, actual, description):
+        description.append_text(u' but found instead {}, wich differs of the target in {}'
+                                .format(self.other_sequence, self.sequence.difference(self.other_sequence)))
+
+
+class subset_of(_setmatcher):
+    def _matches(self, other_sequence):
+        self.other_sequence = set(other_sequence)
+        return self.other_sequence.issubset(self.sequence)
+
+    def describe_to(self, description):
+        description.append_text(u'a set of which {} is a subset'.format(self.sequence))
+
+
+
 @contextmanager
 def assert_that_raises(matcher_or_exception):
     exception, matcher = ((matcher_or_exception, None)
