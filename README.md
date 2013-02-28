@@ -28,6 +28,7 @@ Highly reusable custom hamcrest matchers
 -	callable_
 -	json_
 -   subset_of
+-   superset_of 
 -	xml_document
 -	xml_root
 -	xml_element
@@ -191,6 +192,15 @@ from hamcrest import *
 from matchers import subset_of
 
 assert_that([1, 2], is_(subset_of([1, 2, 3])))
+```
+
+### superset_of
+
+```python
+from hamcrest import *
+from matchers import superset_of
+
+assert_that([1, 2, 3], is_(superset_of([1, 2])))
 ```
 
 ### xml_document

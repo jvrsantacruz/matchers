@@ -320,6 +320,14 @@ class subset_of(_setmatcher):
         description.append_text(u'a set of which {} is a subset'.format(self.sequence))
 
 
+class superset_of(_setmatcher):
+    def _matches(self, other_sequence):
+        self.other_sequence = set(other_sequence)
+        return self.other_sequence.issuperset(self.sequence)
+
+    def describe_to(self, description):
+        description.append_text('a set of which {} is superset'.format(self.sequence))
+
 
 @contextmanager
 def assert_that_raises(matcher_or_exception):
