@@ -1,7 +1,10 @@
-0.1.9
------
+0.1.9 (2013-03-04)
+------------------
 
+* Añade matcher has_len
 * Elimina matcher has_properties que aparece en PyHamcrest==1.7.1
+* Añade versión reStructuredText del README
+
 
 0.1.8 (2013-02-28)
 ------------------
