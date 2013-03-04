@@ -5,7 +5,7 @@ import os
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, u'README.md')).read()
+README = open(os.path.join(here, u'README.rst')).read()
 requires = open(os.path.join(here, 'reqs.txt')).read().splitlines()
 
 setup(
