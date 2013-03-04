@@ -328,6 +328,19 @@ class as_unicode(BaseMatcher):
             return matcher.matches(unicode(uobj))
 
 
+class has_len(BaseMatcher):
+    def __init__(self, length):
+        self.length = length
+
+    def _matches(self, obj):
+        try:
+            length = len(obj)
+        except TypeError:
+            length = len(list(obj))
+
+        return self.length == length
+
+
 @contextmanager
 def assert_that_raises(matcher_or_exception):
     exception, matcher = ((matcher_or_exception, None)
