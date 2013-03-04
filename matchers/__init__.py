@@ -282,8 +282,10 @@ class _setmatcher(BaseMatcher):
         self.sequence = set(sequence)
 
     def describe_mismatch(self, actual, description):
-        description.append_text(u' but found instead {}, wich differs of the target in {}'
-                                .format(self.other_sequence, self.sequence.difference(self.other_sequence)))
+        description.append_text(
+            u' but found instead {other}, wich differs of the target in {diff}'
+            .format(other=self.other_sequence,
+                    diff=self.sequence.symmetric_difference(self.other_sequence)))
 
 
 class subset_of(_setmatcher):
