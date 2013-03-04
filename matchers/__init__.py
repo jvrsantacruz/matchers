@@ -18,7 +18,7 @@ along with matchers.  If not, see <http://www.gnu.org/licenses/>.
 
 import re
 import json
-from lxml import etree
+from xml.etree import ElementTree
 from collections import Iterable
 from exceptions import StopIteration
 from contextlib import contextmanager
@@ -86,15 +86,14 @@ class xml_document(BaseMatcher):
 
     def _matches(self, item):
         try:
-            doc = etree.fromstring(item)
-        except ValueError, err:
-            # try again at ValueError: Unicode strings with encoding declaration are not supported.
-            item = item.encode('utf-8')
-            doc = etree.fromstring(item)
-
-        except etree.Error, err:
+            try:
+                doc = ElementTree.fromstring(item)
+            except ValueError, err:
+                # try again at ValueError: Unicode strings with encoding declaration are not supported.
+                item = item.encode('utf-8')
+                doc = ElementTree.fromstring(item)
+        except Exception, err:
             self.error = err
-            return False
 
         if self.matcher:
             return self.matcher.matches(doc)

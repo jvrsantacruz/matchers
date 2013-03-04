@@ -18,7 +18,7 @@ along with matchers.  If not, see <http://www.gnu.org/licenses/>.
 
 from hamcrest import *
 
-from lxml import etree
+from xml.etree import ElementTree
 
 from matchers import xml_document
 
@@ -41,7 +41,7 @@ class TestXMLDocument(object):
 
 
     def setup(self):
-        self.dom = etree.fromstring(self.document)
+        self.dom = ElementTree.fromstring(self.document)
 
     def test_xml_document(self):
         assert_that(self.document, is_(xml_document()))

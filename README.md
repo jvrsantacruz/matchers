@@ -35,7 +35,6 @@ Highly reusable custom hamcrest matchers
 
 ## Dependences
 
-- lxml
 - pyHamcrest
 
 
@@ -210,10 +209,10 @@ assert_that([1, 2, 3], is_(disjoint_with([4, 5, 6])))
 ```python
 from hamcrest import *
 from matchers import xml_document
-from lxml.etree import _Element
+from xml.etree import Element
 
 assert_that('<element/>', is_(xml_document()))
-assert_that('<element/>', is_(xml_document(instance_of(_Element))))
+assert_that('<element/>', is_(xml_document(instance_of(Element))))
 ```
 
 ### xml_root
