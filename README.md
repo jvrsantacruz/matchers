@@ -2,20 +2,9 @@
 
 Highly reusable custom hamcrest matchers
 
-## Installation
-
-	python setup.py install
-
-## Dependences
-
-- lxml
-- pyHamcrest
-
-
 ## Functions
 
 - assert_that_raises
-
 
 ## Available matchers
 
@@ -26,9 +15,9 @@ Highly reusable custom hamcrest matchers
 -	matches_re
 -	callable_
 -	json_
--   subset_of
--   superset_of 
--   disjoint_with
+- 	subset_of
+- 	superset_of 
+- 	disjoint_with
 
 ### xml matchers
 -	xml_document
@@ -39,6 +28,17 @@ Highly reusable custom hamcrest matchers
 -	soap_document
 -	soap_message
 
+## Installation
+
+	python setup.py install
+
+## Dependences
+
+- lxml
+- pyHamcrest
+
+
+## Documentation
 
 ### assert_that_raises
 
@@ -207,7 +207,6 @@ assert_that('<element/>', is_(xml_document(instance_of(_Element))))
 ```python
 from hamcrest import *
 from matchers import xml_root
-from lxml.etree import _Element
 
 assert_that('<element/>', xml_root(tag='element'))
 ```
