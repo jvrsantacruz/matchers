@@ -11,6 +11,7 @@ Highly reusable custom hamcrest matchers
 -	empty
 -	date_iso (ISO 8601 formatted date string)
 - 	iterable
+-	has_len
 -	has_keys
 -	matches_re
 -	callable_
@@ -121,6 +122,19 @@ class IterateMe(object):
 
 assert_that(IterateMe(), is_(iterable()))
 ```
+
+
+### has_len
+
+Reimplementation of has_length made to work with generators as well
+
+```python
+from hamcrest import *
+from matchers import has_len
+
+assert_that((i for i in [1, 2, 3]), has_len(3))
+```
+
 
 ### has_keys
 
