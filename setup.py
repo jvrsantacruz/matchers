@@ -11,7 +11,7 @@ requires = open(os.path.join(here, 'reqs.txt')).read().splitlines()
 setup(
     name=u'matchers',
     description=u'Collection of highly reusable hamcrest matchers',
-    version=u'0.19',
+    version=u'0.20',
     long_description=README + u'\n',
     classifiers=[
         u"Programming Language :: Python",
