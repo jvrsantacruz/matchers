@@ -6,11 +6,7 @@ from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, u'README.md')).read()
-
-requires = [
-    u'pyHamcrest',
-    u'lxml'
-]
+requires = open(os.path.join(here, 'reqs.txt')).read().splitlines()
 
 setup(
     name=u'matchers',
