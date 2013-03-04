@@ -341,6 +341,15 @@ class has_len(BaseMatcher):
         return self.length == length
 
 
+class all_matches(BaseMatcher):
+    def __init__(self, matcher):
+        self.matcher = matcher
+
+    def _matches(self, sequence):
+        match_fun = self.matcher.matches
+        return all(imap(match_fun, sequence))
+
+
 @contextmanager
 def assert_that_raises(matcher_or_exception):
     exception, matcher = ((matcher_or_exception, None)
