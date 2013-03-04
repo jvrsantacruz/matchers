@@ -16,8 +16,8 @@ setup(
     classifiers=[
         u"Programming Language :: Python",
         u"Topic :: Software Development :: Testing",
-        u"Framework :: pyHamcrest",
         u"Operating System :: OS Independent",
+        u"Intended Audience :: Developers",
     ],
     install_requires=requires,
     packages=find_packages(),
