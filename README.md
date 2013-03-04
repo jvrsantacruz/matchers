@@ -22,7 +22,6 @@ Highly reusable custom hamcrest matchers
 -	empty
 -	date_iso (ISO 8601 formatted date string)
 - 	iterable
--	has_properties
 -	has_keys
 -	matches_re
 -	callable_
@@ -121,29 +120,6 @@ class IterateMe(object):
 		return iter(l)
 
 assert_that(IterateMe(), is_(iterable()))
-```
-
-### has_properties
-
-```python
-from hamcrest import *
-from matchers import has_properties
-
-class Object(object):
-	first = 'foo'
-	second = 'bar'
-
-assert_that(Object(), has_properties(first='foo', second='bar'))
-
-assert_that(Object(), has_properties(dict(
-		first='foo',
-		second='bar'
-})
-
-assert_that(Object(), has_properties([
-		('first', 'foo'), 
-		('second', 'bar')
-])
 ```
 
 ### has_keys

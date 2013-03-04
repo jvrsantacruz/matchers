@@ -233,31 +233,6 @@ class callable_(BaseMatcher):
         description.append_text(u' the object {} was not a callable object'.format(actual))
 
 
-class has_properties(BaseMatcher):
-    def __init__(self, *args, **kwargs):
-        """ has_properties(dict) or has_properties(a=1, b=2) """
-        if args:
-            kwargs.update(args[0])
-
-        self.entries = dict(kwargs)
-
-    def _matches(self, obj):
-        return has_entries(self.entries).matches(self._properties(obj))
-
-    def _properties(self, obj):
-        return {k: getattr(obj, k, None) for k in self.entries.iterkeys()}
-
-    def describe_to(self, description):
-        description.append_text(u'an object with all this properties: {}'.format(self.entries))
-
-    def describe_mismatch(self, actual, description):
-        properties = self._properties(actual)
-        description.append_text(u' but found instead a {} object with this properties: {}'
-                                .format(actual, properties))
-        difference = set(properties.items()) - set(self.entries.items())
-        description.append_text(u' which differs in {}'.format(difference))
-
-
 class empty(BaseMatcher):
     def _matches(self, obj):
         try:
