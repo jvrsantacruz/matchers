@@ -1,3 +1,4 @@
 -r reqs.txt
 nose
 coverage
+doublex

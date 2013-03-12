@@ -364,3 +364,14 @@ def assert_that_raises(matcher_or_exception):
             assert_that(raised, matcher)
     else:
         raise AssertionError(u'no {} raised'.format(exception.__name__))
+
+
+class is_displayed(BaseMatcher):
+    def _matches(self, selenium_element):
+        return selenium_element.is_displayed()
+
+    def describe_to(self, description):
+        description.append_text(u'a web element which is being displayed')
+
+    def describe_mismatch(self, actual, description):
+        description.append_text(u'a non displayed element at position {}'.format(actual.location))

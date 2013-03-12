@@ -8,26 +8,30 @@ Highly reusable custom hamcrest matchers
 
 ## Available matchers
 
--	empty
--	date_iso (ISO 8601 formatted date string)
-- 	iterable
--	has_len
--	has_keys
--	matches_re
--	callable_
--	json_
-- 	subset_of
-- 	superset_of 
-- 	disjoint_with
+- empty
+- date_iso (ISO 8601 formatted date string)
+-  iterable
+- has_len
+- has_keys
+- matches_re
+- callable_
+- json_
+-  subset_of
+-  superset_of 
+-  disjoint_with
 
 ### xml matchers
--	xml_document
--	xml_root
--	xml_element
--	xml_contains_element
--	xml_namespaced
--	soap_document
--	soap_message
+- xml_document
+- xml_root
+- xml_element
+- xml_contains_element
+- xml_namespaced
+- soap_document
+- soap_message
+
+### selenium matchers
+
+- is_displayed
 
 ## Installation
 
@@ -285,4 +289,21 @@ string = """
 
 assert_that(string, 
 		is_(xml_document(is_(soap_document(is_(soap_message()))))))
+```
+
+### is_displayed
+
+
+```python
+from hamcrest import *
+from matchers import is_displayed
+
+from selenium import webdriver
+
+browser = webdriver.Firefox()
+browser.open('wwww.google.com')
+
+logo = browser.find_element_by_css_selector('#hplogo')
+
+assert_that(logo, is_displayed())
 ```

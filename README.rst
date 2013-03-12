@@ -34,6 +34,11 @@ xml matchers
 -  soap\_document
 -  soap\_message
 
+selenium matchers
+~~~~~~~~~~~~~~~~~
+
+-  is\_displayed
+
 Installation
 ------------
 
@@ -44,7 +49,6 @@ Installation
 Dependences
 -----------
 
--  lxml
 -  pyHamcrest
 
 Documentation
@@ -231,10 +235,10 @@ xml\_document
 
     from hamcrest import *
     from matchers import xml_document
-    from lxml.etree import _Element
+    from xml.etree import Element
 
     assert_that('<element/>', is_(xml_document()))
-    assert_that('<element/>', is_(xml_document(instance_of(_Element))))
+    assert_that('<element/>', is_(xml_document(instance_of(Element))))
 
 xml\_root
 ~~~~~~~~~
@@ -313,4 +317,21 @@ soap\_message
 
     assert_that(string, 
             is_(xml_document(is_(soap_document(is_(soap_message()))))))
+
+is\_displayed
+~~~~~~~~~~~~~
+
+.. code:: python
+
+    from hamcrest import *
+    from matchers import is_displayed
+
+    from selenium import webdriver
+
+    browser = webdriver.Firefox()
+    browser.open('wwww.google.com')
+
+    logo = browser.find_element_by_css_selector('#hplogo')
+
+    assert_that(logo, is_displayed())
 
