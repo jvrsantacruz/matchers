@@ -1,3 +1,8 @@
+0.22  (2013-03-12)
+------------------
+
+* Añade primer matcher is_displayed para tests de selenium
+
 0.21  (2013-03-04)
 ------------------
 
