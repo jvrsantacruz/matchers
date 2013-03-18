@@ -68,7 +68,3 @@ class TestAssertThatRaises(object):
                 raise NameError()
         except AssertionError:
             pass
-
-    def test_assert_that_raises_calls_matcher_on_exception_content(self):
-        with assert_that_raises(has_property('message', contains_string(u'warning'))):
-            raise Warning(u'this is a warning')

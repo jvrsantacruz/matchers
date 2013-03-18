@@ -35,7 +35,7 @@ class TestEmpty(object):
         assert_that(set(), is_(empty()))
 
     def test_empty_unicode(self):
-        assert_that(unicode(), is_(empty()))
+        assert_that(u'', is_(empty()))
 
     def test_empty_str(self):
         assert_that(str(), is_(empty()))
@@ -64,10 +64,10 @@ class TestNotEmpty(object):
         assert_that(set(self.tuple), is_not(empty()))
 
     def test_not_empty_unicode(self):
-        assert_that(unicode('unicode'), is_not(empty()))
+        assert_that(u'unicode', is_not(empty()))
 
     def test_not_empty_str(self):
-        assert_that(str('string'), is_not(empty()))
+        assert_that('string', is_not(empty()))
 
     def test_not_empty_generator(self):
         assert_that((i for i in range(1)), is_not(empty()))

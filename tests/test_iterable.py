@@ -41,10 +41,10 @@ class TestIterable(object):
         assert_that(iter([]), is_(iterable()))
 
     def test_string_is_iterable(self):
-        assert_that(str(), is_(iterable()))
+        assert_that('', is_(iterable()))
 
     def test_unicode_is_iterable(self):
-        assert_that(unicode(), is_(iterable()))
+        assert_that(u'', is_(iterable()))
 
     def test_custom_object_is_iterable(self):
         class IterateMe(object):

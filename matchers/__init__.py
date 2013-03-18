@@ -20,7 +20,6 @@ import re
 import json
 from xml.etree import ElementTree
 from collections import Iterable
-from exceptions import StopIteration
 from contextlib import contextmanager
 
 from hamcrest import *
@@ -58,14 +57,14 @@ class edi_document(matches_re):
 
 class date_iso(matches_re):
     fmt = dict(
-        year=ur'(\d{4})',
-        month=ur'((0[1-9])|(1[0-2]))',
-        day=ur'([0-3]\d)',
-        hours=ur'(([01]\d)|(2[0-3]))',
-        minutes=ur'([0-5]\d)',
-        seconds=ur'([0-5]\d)',
-        miliseconds=ur'(\d+)',
-        sep=ur'[/-]',
+        year=r'(\d{4})',
+        month=r'((0[1-9])|(1[0-2]))',
+        day=r'([0-3]\d)',
+        hours=r'(([01]\d)|(2[0-3]))',
+        minutes=r'([0-5]\d)',
+        seconds=r'([0-5]\d)',
+        miliseconds=r'(\d+)',
+        sep=r'[/-]',
     )
 
     def __init__(self):
@@ -88,11 +87,11 @@ class xml_document(BaseMatcher):
         try:
             try:
                 doc = ElementTree.fromstring(item)
-            except ValueError, err:
+            except ValueError as err:
                 # try again at ValueError: Unicode strings with encoding declaration are not supported.
                 item = item.encode('utf-8')
                 doc = ElementTree.fromstring(item)
-        except Exception, err:
+        except Exception as err:
             self.error = err
 
         if self.matcher:
@@ -235,11 +234,13 @@ class callable_(BaseMatcher):
 class empty(BaseMatcher):
     def _matches(self, obj):
         try:
-            iter(obj).next()
-        except StopIteration:
-            return True
+            it = iter(obj)
+            next = getattr(it, 'next', getattr(it, '__next__', None))
+            next()
         except TypeError:
             return not bool(obj)
+        except StopIteration:
+            return True
         else:
             return False
 

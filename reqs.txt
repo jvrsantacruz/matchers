@@ -1,1 +1,1 @@
-pyHamcrest>=1.7.1
+pyHamcrest >= 1.7.1
