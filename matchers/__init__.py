@@ -327,6 +327,9 @@ class as_unicode(BaseMatcher):
         else:
             return matcher.matches(unicode(uobj))
 
+    def describe_to(self, description):
+        description.append_text(u'an unicode-codificable object')
+
 
 class has_len(BaseMatcher):
     def __init__(self, length):
@@ -340,6 +343,9 @@ class has_len(BaseMatcher):
 
         return self.length == length
 
+    def describe_to(self, description):
+        description.append_text(u'a sequence of length {}'.format(self.length))
+
 
 class all_matches(BaseMatcher):
     def __init__(self, matcher):
@@ -348,6 +354,10 @@ class all_matches(BaseMatcher):
     def _matches(self, sequence):
         match_fun = self.matcher.matches
         return all(imap(match_fun, sequence))
+
+    def describe_to(self, description):
+        description.append_text(u'a sequence whose elements all matches: ')
+        self.matcher.describe_to(description)
 
 
 @contextmanager
